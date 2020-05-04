@@ -1,0 +1,6 @@
+# Default ignored files
+/shelf/
+/.idea/workspace.xml
+/build/*
+application-oauth.properties
+.DS_Store
