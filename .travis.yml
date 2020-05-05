@@ -18,3 +18,18 @@ notifications:
   email:
     recipients:
       - qazxsw68@hanmail.net
+
+before_deploy:
+  - zip -r yebali-spring
+  - mkdir -p deploy
+  - mv yebali-spring.zip deploy/yebali-spring.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: yebali-spring-bucket
+    skip_cleanup: true
+    acl: private
+    local_dir: deploy
+    wait-until-deployed: true
