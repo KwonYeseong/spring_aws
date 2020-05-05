@@ -14,9 +14,9 @@ cache:
 script: "./gradlew clean build"
 
 before_deploy:
-  - zip -r yebali-spring
+  - zip -r spring_aws
   - mkdir -p deploy
-  - mv yebali-spring.zip deploy/yebali-spring.zip
+  - mv spring_aws.zip deploy/spring_aws
 
 deploy:
   - provider: s3
