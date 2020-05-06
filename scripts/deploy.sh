@@ -19,7 +19,7 @@ else
 fi
 
 echo "> deploy new Application..."
-JAR_NAME=$(ls -tr $REPOSITORY/ | grep .jar | tail -n 1)
+JAR_NAME=$(ls -tr $REPOSITORY/*.jar | tail -n 1)
 echo "> JAR name: $JAR_NAME"
 
 echo "> Grant +x "
