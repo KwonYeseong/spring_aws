@@ -14,7 +14,7 @@ cache:
 script: "./gradlew clean build"
 
 before_deploy:
-  - zip -r spring_aws.zip *
+  - zip -r spring_aws *
   - mkdir -p deploy
   - mv spring_aws.zip deploy/spring_aws
 
@@ -33,7 +33,7 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
     bucket: yebali-spring-bucket
-    key: spring_aws.zip
+    key: spring_aws
     bundle_type: zip
     application: yebali-springboot-web
     deployment_group: yebali-springboot-web-group
