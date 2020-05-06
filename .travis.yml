@@ -14,9 +14,13 @@ cache:
 script: "./gradlew clean build"
 
 before_deploy:
-  - zip -r spring_aws *
-  - mkdir -p deploy
-  - mv spring_aws.zip deploy/spring_aws
+  - mkdir -p before-deploy
+  - cp scripts/*.sh before-deploy/
+  - cp appspec.yml before-deploy/
+  - cp build/libs/*.jar before-deploy/
+  - cd before-deploy && zip -r before-deploy *
+  - cd ../ && mkdir -p deploy
+  - mv before-deploy/before-deploy.zip deploy/spring-aws.zip
 
 deploy:
   - provider: s3
@@ -33,7 +37,7 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
     bucket: yebali-spring-bucket
-    key: spring_aws
+    key: spring_aws # S3에 있는 파일명과 일치해야함!!
     bundle_type: zip
     application: yebali-springboot-web
     deployment_group: yebali-springboot-web-group
