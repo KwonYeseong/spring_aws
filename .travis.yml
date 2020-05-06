@@ -38,7 +38,7 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
     bucket: yebali-spring-bucket
-    key: spring_aws # S3에 있는 파일명과 일치해야함!!
+    key: spring_aws.zip # S3에 있는 파일명과 일치해야함!!
     bundle_type: zip
     application: yebali-springboot-web
     deployment_group: yebali-springboot-web-group
