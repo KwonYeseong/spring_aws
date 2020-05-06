@@ -7,7 +7,7 @@ echo "> Copy build files"
 cp $REPOSITORY/zip/*.jar $REPOSIOTY/
 
 echo "> check project application pid"
-CURRENT_PID=$(pgrep -fl spring_aws | grep jar | awk'{print $1}')
+CURRENT_PID=$(pgrep -fl spring_aws | grep jar | awk '{print $1}')
 echo "> Application PID: $CURRENT_PID"
 
 if [ -z "$CURRENT_PID" ]; then
@@ -22,7 +22,7 @@ echo "> deploy new Application..."
 JAR_NAME=$(ls -tr $REPOSITORY/*.jar | tail -n 1)
 echo "> JAR name: $JAR_NAME"
 
-echo "> Grant +x "
+echo "> Grant excute auth"
 chmod +x $JAR_NAME
 echo "> excute $JAR_NAME"
 
