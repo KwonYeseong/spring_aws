@@ -35,14 +35,15 @@ deploy:
     local_dir: deploy
     wait-until-deployed: true
 
+  #codedeploy에게 배포요청
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
     bucket: yebali-spring-bucket
     key: spring_aws.zip # S3에 있는 파일명과 일치해야함!!
     bundle_type: zip
-    application: yebali-springboot-web
-    deployment_group: yebali-springboot-web-group
+    application: codedeploy_app
+    deployment_group: codedeploy_app_group
     region: ap-northeast-2
     wait-until-deployed: true
 
