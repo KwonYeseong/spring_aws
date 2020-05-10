@@ -4,7 +4,7 @@ REPOSITORY=/home/ec2-user/app/step2
 PROJECT_NAME=spring_aws
 
 echo "> Copy build files"
-cp $REPOSITORY/zip/*.jar $REPOSIOTY/
+cp $REPOSITORY/zip/*.jar $REPOSITORY/
 
 echo "> check project application pid"
 CURRENT_PID=$(pgrep -fl spring_aws | grep jar | awk '{print $1}')
