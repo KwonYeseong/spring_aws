@@ -7,7 +7,7 @@ echo "> Copy build files"
 cp $REPOSITORY/zip/*.jar $REPOSITORY/
 
 echo "> check project application pid"
-CURRENT_PID=$(pgrep -fl spring_aws | grep jar | awk '{print $1}')
+CURRENT_PID=$(pgrep -fl spring_AWS | grep jar | awk '{print $1}')
 echo "> Application PID: $CURRENT_PID"
 
 if [ -z "$CURRENT_PID" ]; then
