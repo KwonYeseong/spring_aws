@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Collections;
 
 @RequiredArgsConstructor
-@Service
+@Service // login 정보 -> CustomOAuth2UserService -> userRepository
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
     private final UserRepository userRepository;
     private final HttpSession httpSession;
@@ -28,14 +28,23 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         OAuth2UserService delegate = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = delegate.loadUser(userRequest);
 
-        String registrationId = userRequest.getClientRegistration().getRegistrationId();
-        String userNameAttributeName = userRequest.getClientRegistration()
-                .getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
+        String registrationId = userRequest
+                .getClientRegistration()
+                .getRegistrationId(); //로그인 시 징행중인 서비스를 구분하는 코드
 
-        OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
+
+        String userNameAttributeName = userRequest
+                .getClientRegistration()
+                .getProviderDetails()
+                .getUserInfoEndpoint()
+                .getUserNameAttributeName(); //OAuth2 로그인 진행 시 키가되는 필드값을 이야기함.
+
+        OAuthAttributes attributes = OAuthAttributes // OAuth2UserService를 통해 가져온 OAuth2User의 attribute를 담는 클래스
+                .of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
         User user = saveOrUpdate(attributes);
 
+        // 로그인 성공 시 user에 관한 데이터를 httpSession에 저장
         httpSession.setAttribute("user", new SessionUser(user));
 
         return new DefaultOAuth2User(Collections.singleton(

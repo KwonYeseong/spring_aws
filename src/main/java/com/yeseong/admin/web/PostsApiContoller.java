@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@RestController
+@RestController// 해당 Contorller를 Json을 반환하는 Controller로 만들어줌.
 public class PostsApiContoller {
 
     private final PostsService postsService;

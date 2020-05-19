@@ -11,6 +11,7 @@ var main = {
             _this.delete();
         });
     },
+    //function이름이 다른 .js의 function과 겹칠 수 있기 때문에 var main 안에 선언
     save : function() {
         var data = {
             title : $('#title').val(),
@@ -27,7 +28,7 @@ var main = {
             data:JSON.stringify(data)
         }).done(function() {
             alert('글이 등록되었습니다.');
-            window.location.href = '/';
+            window.location.href = '/'; //글 등록이 성공하면 메인페이지('/')로 이동
         }).fail(function(error) {
            alert(JSON.stringify(error));
         });
@@ -68,7 +69,6 @@ var main = {
             alert(JSON.stringify(error));
         });
     }
-
 };
 
 main.init();

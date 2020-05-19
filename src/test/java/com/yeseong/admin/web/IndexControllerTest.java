@@ -19,7 +19,7 @@ public class IndexControllerTest {
 
     @Test
     public void mainpage_load() {
-        String body = this.restTemplate.getForObject("/", String.class);
+        String body = this.restTemplate.getForObject("/", String.class); // html코드가 그대로 날아옴
 
         assertThat(body).contains("스프링 부트로 시작하는 웹 서비스");
     }

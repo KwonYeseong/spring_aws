@@ -14,11 +14,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-@Service
+// service layer, business logic을 가진 클래스에 사용한다.
+// Repository를 통해 DB에서 데이터를 가져온 후 Controller에게 전달해 주는 클래스임을 명시
+@Service 
 public class PostsService {
     private final PostsRepository postsRepository;
 
-    @Transactional
+    @Transactional // 해당 클래스에 transaction기능이 적용된 프록시 객체가 생성된다.
     public Long save(PostsSaveRequestDto requestDto) {
         return postsRepository.save(requestDto.toEntity()).getId();
     }
@@ -37,8 +39,8 @@ public class PostsService {
     }
 
     public List<PostsListResponseDto> findAllDesc() {
-        return postsRepository.findAllDesc().stream()
-                .map(PostsListResponseDto::new)
+        return postsRepository.findAllDesc().stream() // postsRepository에서 넘어온 Posts의 stream을
+                .map(PostsListResponseDto::new)       // map을 통해 List로 변환
                 .collect(Collectors.toList());
     }
 

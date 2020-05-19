@@ -7,6 +7,8 @@ import lombok.Getter;
 
 import java.util.Map;
 
+// OAuth2UserService를 통해 가져온 OAuth2User의 attribute를 담는 클래스
+// Dto의 일종으로 볼 수 있다.
 @Getter
 public class OAuthAttributes {
     private Map<String, Object> attributes;
@@ -24,6 +26,7 @@ public class OAuthAttributes {
         this.picture = picture;
     }
 
+    // OAuth2User에서 반환하는 사용자 정보는 Map이기 때문에 값 하나하나를 변환해야만한다.
     public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
         if("naver".equals(registrationId))
             return ofNaver("id", attributes);
@@ -53,12 +56,14 @@ public class OAuthAttributes {
                 .build();
      }
 
+     // User 엔티티를 생성
+     // 엔티티를 생성하는 시점은 처음 가입할때이다.
      public User toEntity() {
         return User.builder()
                 .name(name)
                 .email(email)
                 .picture(picture)
-                .role(Role.GUEST)
+                .role(Role.GUEST) //가입할 때 기본 권한은 GUEST로 준다
                 .build();
      }
 }

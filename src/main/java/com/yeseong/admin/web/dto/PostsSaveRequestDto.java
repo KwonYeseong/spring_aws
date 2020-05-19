@@ -5,8 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/* Entity클래스를 Request/Response클래스로 사용해서는 안된다. */
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor // 기본생성자를 생성해줌
 public class PostsSaveRequestDto {
     private String title;
     private String content;
@@ -26,5 +27,4 @@ public class PostsSaveRequestDto {
                 .author(author)
                 .build();
     }
-
 }

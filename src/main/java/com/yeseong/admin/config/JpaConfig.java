@@ -4,5 +4,5 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @Configuration
-@EnableJpaAuditing
-public class JapConfig {}
+@EnableJpaAuditing // Application Class에서 분리
+public class JpaConfig {}

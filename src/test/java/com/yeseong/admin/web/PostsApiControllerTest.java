@@ -29,10 +29,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
+//WebMvcTest는 JPA 기능이 작동하지 않는다. 그래서 SpringBootTest를 사용
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PostsApiControllerTest {
 
-        @LocalServerPort
+        @LocalServerPort // 실행중인 port번호를 가져옴
         private int port;
 
         @Autowired
@@ -46,7 +47,7 @@ public class PostsApiControllerTest {
 
         private MockMvc mvc;
 
-        @Before
+        @Before // 매번 테스트가 시작되기 전에 MockMvc 인스턴스를 생성
         public void setup() {
             mvc = MockMvcBuilders
                     .webAppContextSetup(context)
@@ -60,7 +61,7 @@ public class PostsApiControllerTest {
         }
 
         @Test
-        @WithMockUser(roles = "USER")
+        @WithMockUser(roles = "USER") // 인증된 가짜 사용자를 만들어서 사용
         public void posts_registration() throws Exception {
             String title = "title";
             String content = "content";
@@ -78,7 +79,7 @@ public class PostsApiControllerTest {
 //            assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 //            assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
-            mvc.perform(post(url)
+            mvc.perform(post(url) // 생성된 MockMvc를 통해 API를 테스트한다.
                     .contentType(MediaType.APPLICATION_JSON_UTF8)
                     .content(new ObjectMapper().writeValueAsString(requestDto)))
                     .andExpect(status().isOk());
@@ -91,7 +92,7 @@ public class PostsApiControllerTest {
 
         @Test
         @WithMockUser(roles = "USER")
-        public void posts_revise() throws Exception {
+        public void posts_update() throws Exception {
             Posts savedPosts = postsRepository
                                     .save(Posts.builder()
                                             .title("title")
